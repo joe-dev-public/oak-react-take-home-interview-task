@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Lessons from "./Lessons";
 
+function capitalise(string) {
+  return string.substr(0, 1).toUpperCase() + string.substr(1);
+}
+
 function Unit({ unitId }) {
   const [unitData, setUnitData] = useState(null);
   const [lessonsData, setLessonsData] = useState(null);
@@ -33,17 +37,22 @@ function Unit({ unitId }) {
     fetchLessonsData();
   }, []);
 
+  // Not absolutely necessary, and there would be better ways of doing this
+  // in a "real" application, but for the sake of screen readers, it's nice
+  // to have the page title be something other than "React App".
+  useEffect(() => {
+    if (unitData) {
+      document.title = `${capitalise(unitData.unitInfo.subject)}, ${unitData.unitInfo.keyStage}: ${unitData.title} | Oak National Academy`;
+    }
+  }, [unitData]);
+
   // Only render when unitData has been successfully fetched:
   if (unitData) {
-    const subjectCapitalised =
-      unitData.unitInfo.subject.substr(0, 1).toUpperCase() +
-      unitData.unitInfo.subject.substr(1);
-
     return (
       <>
         <h1>{unitData.title}</h1>
         <h2>{unitData.unitInfo.keyStage}</h2>
-        <h2>{subjectCapitalised}</h2>
+        <h2>{capitalise(unitData.unitInfo.subject)}</h2>
         {lessonsData && <Lessons lessonsData={lessonsData} />}
       </>
     );
