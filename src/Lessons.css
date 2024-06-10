@@ -1,0 +1,9 @@
+.lessons-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Give nested list the appearance of top-level */
+.objectives-list {
+  list-style-type: disc;
+}
