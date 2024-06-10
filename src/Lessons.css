@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.lessons-list > li {
+  margin-bottom: 2.25rem;
+}
+
 /* Give nested list the appearance of top-level */
 .objectives-list {
   list-style-type: disc;
